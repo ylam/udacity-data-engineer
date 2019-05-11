@@ -1,6 +1,6 @@
 # Setup Postgres docker database for project
 
-Credit on how to setup postgres docker databae came from (Salty Crane Blog)[https://www.saltycrane.com/blog/2019/01/how-run-postgresql-docker-mac-local-development/].
+Credit on how to setup postgres docker databae came from [Salty Crane Blog](https://www.saltycrane.com/blog/2019/01/how-run-postgresql-docker-mac-local-development/).
 
 ## Start Postgres
 `$ docker-compose up -d`
