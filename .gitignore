@@ -1,5 +1,6 @@
 # Data Folder
 Data\ Modeling\ Postgres/project/data/*
+Data\ Modeling\ Cassandra/event_data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
