@@ -11,14 +11,14 @@ Credit on how to setup postgres docker databae came from [Salty Crane Blog](http
 ## Running psql
 `$ docker exec -it my_postgres psql -U postgres`
 
+## Create a database
+`postgres=# Create database studentdb;`
+
 ## Create user name student
-`$ docker exec -it my_postgres psql -U student -P student`
+`postgres=# CREATE USER student with encrypted password 'student';`
 
 ## Grant user to create database
-`$ docker exec -it my_postgres psql -U postgres -c "ALTER USER student CREATEDB;"`
-
-## Create a database
-`$ docker exec -it my_postgres psql -U postgres -c "create database studentdb"`
+`postgres=# ALTER USER student CREATEDB;`
 
 ## Install psycopg2 module
 `$ pip install -r requirements.txt`
