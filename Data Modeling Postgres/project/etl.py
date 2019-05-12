@@ -11,11 +11,19 @@ def process_song_file(cur, filepath):
 
     # insert song record
     song_data = df[['song_id', 'title', 'artist_id', 'year', 'duration']].values[0].tolist()
-    cur.execute(song_table_insert, song_data)
-    
+    try:
+        cur.execute(song_table_insert, song_data)
+    except psycopg2.Error as e: 
+        print("Error: Could not insert song record to Postgres database")
+        print(e)
+
     # insert artist record
     artist_data = df[['artist_id', 'artist_name', 'artist_location', 'artist_latitude', 'artist_longitude']].values[0].tolist()
-    cur.execute(artist_table_insert, artist_data)
+    try:
+        cur.execute(artist_table_insert, artist_data)
+    except psycopg2.Error as e: 
+        print("Error: Could not insert artist record to Postgres database")
+        print(e)
 
 
 def process_log_file(cur, filepath):
@@ -39,14 +47,22 @@ def process_log_file(cur, filepath):
     df['start_time'] = t
 
     for i, row in time_df.iterrows():
-        cur.execute(time_table_insert, list(row))
+        try:
+            cur.execute(time_table_insert, list(row))
+        except psycopg2.Error as e: 
+            print("Error: Could not insert time record to Postgres database")
+            print(e)
 
     # load user table
     user_df = df[['userId', 'firstName', 'lastName', 'gender', 'level']]
 
     # insert user records
     for i, row in user_df.iterrows():
-        cur.execute(user_table_insert, row)
+        try:
+            cur.execute(user_table_insert, row)
+        except psycopg2.Error as e: 
+            print("Error: Could not insert user record to Postgres database")
+            print(e)
 
     # insert songplay records
     for index, row in df.iterrows():
@@ -57,7 +73,11 @@ def process_log_file(cur, filepath):
 
         # insert songplay record
         songplay_data = (str(row.start_time), row.userId, row.level, songid, artistid, row.sessionId, row.location, row.userAgent)
-        cur.execute(songplay_table_insert, songplay_data)
+        try:
+            cur.execute(songplay_table_insert, songplay_data)
+        except psycopg2.Error as e: 
+            print("Error: Could not insert songplay record to Postgres database")
+            print(e)
 
 
 def process_data(cur, conn, filepath, func):
