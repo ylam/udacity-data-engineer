@@ -7,13 +7,13 @@ Sparkify is a music streaming app and we like to better serve our customers by p
 As a data engineer I work on building a star schema data model. My goal is to collect the data from the application logs and song list played. Once data is collected then I need to insert them to tables in a database so it is easily discoverable with simple queries to answer many business questions. Below is the star schema with the following tables.
 
 **Dimension tables**
-    * songs
-    * artists
-    * users
-    * time
+  * songs
+  * artists
+  * users
+  * time
 
 **Fact table**
-    * songs play
+  * songs play
 
 To populate songs and artists tables I collect from a song dataset which provides me the songs and artists information. I separate the data to two tables because for querying the business analysts may only want to know more about the songs or artists. 
 
