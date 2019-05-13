@@ -1,4 +1,4 @@
-#Data Modeling Cassandra Project
+# Data Modeling Cassandra Project
 
 Sparkify has event data which we want to query about. Since it has a lot of data we choose to import the data into Cassandra database. Business analysts have provided us some information that we like which helps us build our data model.
 
