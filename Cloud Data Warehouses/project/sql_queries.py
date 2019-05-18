@@ -27,12 +27,16 @@ staging_events_table_create= ("""
         length decimal,
         level varchar,
         location varchar,
+        method varchar,
+        page varchar,
+        registration decimal,
         sessionId int,
         song varchar,
-        ts int,
+        status smallint,
+        ts bigint,
         userAgent varchar,
         userId int,
-        PRIMARY KEY (userId, sessionId, itemInSessions, ts)
+        PRIMARY KEY (sessionId, itemInSessions, ts)
     )
 """)
 
@@ -40,14 +44,15 @@ staging_songs_table_create = ("""
     CREATE TABLE stg_song(
         artist_id varchar,
         artist_latitude decimal,
-        artist_longitude decimal,
         artist_location varchar,
+        artist_longitude decimal,
         artist_name varchar,
+        duration decimal,
+        num_songs int,
         song_id varchar,
         title varchar,
-        duration decimal,
         year int,
-        PRIMARY KEY (artist_id, song_id)
+        PRIMARY KEY (song_id)
     )
 """)
 
@@ -112,20 +117,22 @@ artist_table_create = ("""
     )
 """)
 
-
+#Copy command documentation https://docs.aws.amazon.com/redshift/latest/dg/copy-parameters-data-source-s3.html
 # STAGING TABLES
-#Example
-# qry = """
-#     copy sporting_event_ticket from 's3://udacity-labs/tickets/split/part'
-#     credentials 'aws_iam_role={}'
-#     gzip delimiter ';' compupdate off region 'us-west-2';
-# """.format(DWH_ROLE_ARN)
-
 staging_events_copy = ("""
-""").format()
+    copy stg_event from {}
+    iam_role {}
+    format as JSON {}
+    region 'us-west-2';
+""").format(config['S3']['LOG_DATA'], config['IAM_ROLE']['ARN'], config['S3']['LOG_JSONPATH'])
 
 staging_songs_copy = ("""
-""").format()
+    copy stg_song 
+    from {}
+    iam_role {}
+    compupdate off region 'us-west-2'
+    JSON 'auto' truncatecolumns;
+""").format(config['S3']['SONG_DATA'], config['IAM_ROLE']['ARN'])
 
 # FINAL TABLES
 # query tables from staging tables
