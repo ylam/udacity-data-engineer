@@ -2,6 +2,7 @@
 Data\ Modeling\ Postgres/project/data/*
 Data\ Modeling\ Cassandra/event_data/*
 credentials.csv
+*.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -107,3 +108,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
