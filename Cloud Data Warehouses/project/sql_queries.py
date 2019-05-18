@@ -126,19 +126,20 @@ staging_events_copy = ("""
     region 'us-west-2';
 """).format(config['S3']['LOG_DATA'], config['IAM_ROLE']['ARN'], config['S3']['LOG_JSONPATH'])
 
+#Copy command with JSON auto https://forums.aws.amazon.com/thread.jspa?messageID=538556
 staging_songs_copy = ("""
     copy stg_song 
     from {}
     iam_role {}
     compupdate off region 'us-west-2'
-    JSON 'auto' truncatecolumns;
+    JSON 'auto';
 """).format(config['S3']['SONG_DATA'], config['IAM_ROLE']['ARN'])
 
 # FINAL TABLES
 # query tables from staging tables
 songplay_table_insert = ("""
     insert into fact_songplay(start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
-    select TIMESTAMP 'epoch' + e.ts * INTERVAL '1 second' as start_time
+    select TIMESTAMP 'epoch' + e.ts/1000 * INTERVAL '1 second' as start_time
         , e.userId as user_id
         , e.level as level
         , s.song_id
@@ -149,8 +150,9 @@ songplay_table_insert = ("""
     from stg_event as e
         join stg_song as s
             on e.song = s.title
-            and e.firstName = s.artist_name
+            and e.artist = s.artist_name
             and e.length = s.duration
+    where e.userId is not null;
 """)
 
 user_table_insert = ("""
@@ -161,6 +163,7 @@ user_table_insert = ("""
         , e.gender as gender
         , e.level as level
     from stg_event as e
+    where e.userId is not null;
 """)
 
 song_table_insert = ("""
@@ -171,6 +174,7 @@ song_table_insert = ("""
         , S.year as year
         , S.duration as duration
     from stg_song as S
+    where S.song_id is not null;
 """)
 
 artist_table_insert = ("""
@@ -181,8 +185,10 @@ artist_table_insert = ("""
         , S.artist_latitude as latitude
         , S.artist_longitude as longitude
     from stg_song as S
+    where S.artist_id is not null;
 """)
 
+#Convert epoch to datetime https://stackoverflow.com/questions/39815425/how-to-convert-epoch-to-datetime-redshift
 time_table_insert = ("""
     insert into dim_time(start_time, hour, day, week, month, year, weekday)
     select data.ts
