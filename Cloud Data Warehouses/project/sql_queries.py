@@ -186,14 +186,14 @@ artist_table_insert = ("""
 time_table_insert = ("""
     insert into dim_time(start_time, hour, day, week, month, year, weekday)
     select data.ts
-        , date_part(hour, data.ts)
-        , date_part(day, data.ts)
-        , date_part(week, data.ts)
-        , date_part(month, data.ts)
-        , date_part(year, data.ts)
-        , date_part(dayofweek, data.ts)
+        , cast(date_part(hour, data.ts) as int) as hour
+        , cast(date_part(day, data.ts) as int) as day
+        , cast(date_part(week, data.ts) as int) as week
+        , cast(date_part(month, data.ts) as int) as month
+        , cast(date_part(year, data.ts) as int) as year
+        , cast(date_part(dayofweek, data.ts) as int) as weekday
     FROM (
-        SELECT TIMESTAMP 'epoch' + ts * INTERVAL '1 second' as ts 
+        SELECT TIMESTAMP 'epoch' + ts/1000 * INTERVAL '1 second' as ts 
         FROM stg_event
     ) as data;
 """)
