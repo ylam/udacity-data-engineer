@@ -50,7 +50,7 @@ staging_songs_table_create = ("""
         duration decimal,
         num_songs int,
         song_id varchar,
-        title varchar,
+        title varchar,        
         year int,
         PRIMARY KEY (song_id)
     )
@@ -137,18 +137,65 @@ staging_songs_copy = ("""
 # FINAL TABLES
 # query tables from staging tables
 songplay_table_insert = ("""
+    insert into fact_songplay(start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
+    select TIMESTAMP 'epoch' + e.ts * INTERVAL '1 second' as start_time
+        , e.userId as user_id
+        , e.level as level
+        , s.song_id
+        , s.artist_id as artist_id
+        , e.sessionId as session_id
+        , e.location as location
+        , e.userAgent as user_agent
+    from stg_event as e
+        join stg_song as s
+            on e.song = s.title
+            and e.firstName = s.artist_name
+            and e.length = s.duration
 """)
 
 user_table_insert = ("""
+    insert into dim_user(user_id, first_name, last_name, gender, level)
+    select e.userId as user_id
+        , e.firstName as first_name
+        , e.lastName as last_name
+        , e.gender as gender
+        , e.level as level
+    from stg_event as e
 """)
 
 song_table_insert = ("""
+    insert into dim_song(song_id, title, artist_id, year, duration)
+    select S.song_id as song_id
+        , S.title as title
+        , S.artist_id as artist_id
+        , S.year as year
+        , S.duration as duration
+    from stg_song as S
 """)
 
 artist_table_insert = ("""
+    insert into dim_artist(artist_id, name, location, latitude, longitude)
+    select S.artist_id
+        , S.artist_name as name
+        , S.artist_location as location
+        , S.artist_latitude as latitude
+        , S.artist_longitude as longitude
+    from stg_song as S
 """)
 
 time_table_insert = ("""
+    insert into dim_time(start_time, hour, day, week, month, year, weekday)
+    select data.ts
+        , date_part(hour, data.ts)
+        , date_part(day, data.ts)
+        , date_part(week, data.ts)
+        , date_part(month, data.ts)
+        , date_part(year, data.ts)
+        , date_part(dayofweek, data.ts)
+    FROM (
+        SELECT TIMESTAMP 'epoch' + ts * INTERVAL '1 second' as ts 
+        FROM stg_event
+    ) as data;
 """)
 
 # QUERY LISTS
@@ -156,4 +203,5 @@ time_table_insert = ("""
 create_table_queries = [staging_events_table_create, staging_songs_table_create, user_table_create, song_table_create, artist_table_create, time_table_create, songplay_table_create]
 drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplay_table_drop, user_table_drop, song_table_drop, artist_table_drop, time_table_drop]
 copy_table_queries = [staging_events_copy, staging_songs_copy]
-insert_table_queries = [songplay_table_insert, user_table_insert, song_table_insert, artist_table_insert, time_table_insert]
+# copy_table_queries = [staging_songs_copy]
+insert_table_queries = [user_table_insert, song_table_insert, artist_table_insert, time_table_insert, songplay_table_insert]
