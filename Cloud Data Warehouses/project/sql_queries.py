@@ -33,7 +33,7 @@ staging_events_table_create= ("""
         sessionId int,
         song varchar,
         status smallint,
-        ts timestamp,
+        ts bigint,
         userAgent varchar,
         userId int,
         PRIMARY KEY (sessionId, itemInSessions, ts)
