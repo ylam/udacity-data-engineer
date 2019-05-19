@@ -155,7 +155,8 @@ songplay_table_insert = ("""
 
 user_table_insert = ("""
     insert into dim_user(user_id, first_name, last_name, gender, level)
-    select e.userId as user_id
+    select DISTINCT 
+        e.userId as user_id
         , e.firstName as first_name
         , e.lastName as last_name
         , e.gender as gender
@@ -166,7 +167,8 @@ user_table_insert = ("""
 
 song_table_insert = ("""
     insert into dim_song(song_id, title, artist_id, year, duration)
-    select S.song_id as song_id
+    select DISTINCT 
+        S.song_id as song_id
         , S.title as title
         , S.artist_id as artist_id
         , S.year as year
@@ -177,7 +179,8 @@ song_table_insert = ("""
 
 artist_table_insert = ("""
     insert into dim_artist(artist_id, name, location, latitude, longitude)
-    select S.artist_id
+    select DISTINCT 
+        S.artist_id
         , S.artist_name as name
         , S.artist_location as location
         , S.artist_latitude as latitude
@@ -188,7 +191,8 @@ artist_table_insert = ("""
 
 time_table_insert = ("""
     insert into dim_time(start_time, hour, day, week, month, year, weekday)
-    select data.ts
+    select DISTINCT 
+        , data.ts
         , cast(date_part(hour, data.ts) as int) as hour
         , cast(date_part(day, data.ts) as int) as day
         , cast(date_part(week, data.ts) as int) as week
