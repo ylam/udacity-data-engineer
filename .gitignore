@@ -112,3 +112,4 @@ venv.bak/
 
 Cloud Data Warehouses/lessons/dwh.cfg
 Cloud Data Warehouses/project/dwh.cfg
+Cloud Data Warehouses/project/setup_environment/dwh.cfg
