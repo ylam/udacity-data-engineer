@@ -33,7 +33,7 @@ staging_events_table_create= ("""
         sessionId int,
         song varchar,
         status smallint,
-        ts bigint,
+        ts timestamp,
         userAgent varchar,
         userId int,
         PRIMARY KEY (sessionId, itemInSessions, ts)
@@ -98,8 +98,8 @@ user_table_create = ("""
 song_table_create = ("""
     CREATE TABLE dim_song (
         song_id varchar NOT NULL,
-        title varchar,
-        artist_id varchar,
+        title varchar NOT NULL,
+        artist_id varchar NOT NULL,
         year int,
         duration decimal,
         PRIMARY KEY (song_id)
