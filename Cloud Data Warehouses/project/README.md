@@ -69,6 +69,7 @@ To minimize upfront cost we decide to build the data mart on Amazon Web Services
 3. Scafold a redshift cluster follow steps in [lesson_setup_redshift_cluster notebook](https://github.com/ylam/udacity-data-engineer/tree/master/Cloud%20Data%20Warehouses/project/setup_environment)
 4. Create tables in redshift cluster by running `python create_tables.py`
 5. Populate staging, dimension and fact tables by running `python etl.py`
+6. As validation I wrote a ipython notebook named [analyze](https://github.com/ylam/udacity-data-engineer/blob/master/Cloud%20Data%20Warehouses/project/analyze.ipynb) which connects to redshift and do a row count for staging, dimension and fact tables.
 
 ## References
 1. Logic to convert epoch time to datetime with redshift [link](https://stackoverflow.com/questions/39815425/how-to-convert-epoch-to-datetime-redshift)
