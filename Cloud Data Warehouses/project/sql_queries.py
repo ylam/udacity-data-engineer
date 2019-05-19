@@ -117,7 +117,6 @@ artist_table_create = ("""
     )
 """)
 
-#Copy command documentation https://docs.aws.amazon.com/redshift/latest/dg/copy-parameters-data-source-s3.html
 # STAGING TABLES
 staging_events_copy = ("""
     copy stg_event from {}
@@ -126,7 +125,6 @@ staging_events_copy = ("""
     region 'us-west-2';
 """).format(config['S3']['LOG_DATA'], config['IAM_ROLE']['ARN'], config['S3']['LOG_JSONPATH'])
 
-#Copy command with JSON auto https://forums.aws.amazon.com/thread.jspa?messageID=538556
 staging_songs_copy = ("""
     copy stg_song 
     from {}
@@ -188,7 +186,6 @@ artist_table_insert = ("""
     where S.artist_id is not null;
 """)
 
-#Convert epoch to datetime https://stackoverflow.com/questions/39815425/how-to-convert-epoch-to-datetime-redshift
 time_table_insert = ("""
     insert into dim_time(start_time, hour, day, week, month, year, weekday)
     select data.ts
