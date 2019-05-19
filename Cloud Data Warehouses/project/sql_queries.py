@@ -59,12 +59,12 @@ staging_songs_table_create = ("""
 time_table_create = ("""
     CREATE TABLE dim_time (
         start_time timestamp NOT NULL,
-        hour int,
-        day int,
-        week int,
-        month int,
-        year int,
-        weekday int,
+        hour int NOT NULL,
+        day int NOT NULL,
+        week int NOT NULL,
+        month int NOT NULL,
+        year int NOT NULL,
+        weekday int NOT NULL,
         PRIMARY KEY (start_time)
     )
 """)
