@@ -192,7 +192,7 @@ artist_table_insert = ("""
 time_table_insert = ("""
     insert into dim_time(start_time, hour, day, week, month, year, weekday)
     select DISTINCT 
-        , data.ts
+        data.ts
         , cast(date_part(hour, data.ts) as int) as hour
         , cast(date_part(day, data.ts) as int) as day
         , cast(date_part(week, data.ts) as int) as week
