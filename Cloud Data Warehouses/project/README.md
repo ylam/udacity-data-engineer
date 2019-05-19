@@ -58,15 +58,15 @@ Sample of event data set log
 }
 ```
 
-To store metadata about song, artist and event data we create two staging tables. We load the data from the JSON files by using a copy command following instructions from link. Once the data is stored in staging tables we write insert queries with select statement to pull data from staging tables and load into our dimension and fact tables. 
+To store metadata about song, artist and event data we create two staging tables namely [stg_event](https://github.com/ylam/udacity-data-engineer/blob/master/Cloud%20Data%20Warehouses/project/sql_queries.py#L19-L41) and [stg_song](https://github.com/ylam/udacity-data-engineer/blob/master/Cloud%20Data%20Warehouses/project/sql_queries.py#L43-L57). We load the data from the JSON files by using a [copy](https://github.com/ylam/udacity-data-engineer/blob/master/Cloud%20Data%20Warehouses/project/sql_queries.py#L120-L134) command to staging tables. Once the data is stored in staging tables we write [insert queries](https://github.com/ylam/udacity-data-engineer/blob/master/Cloud%20Data%20Warehouses/project/sql_queries.py#L136-L202) with select statement to pull data from staging tables and load into our dimension and fact tables. 
 
 ## Infrastructure
-To minimize upfront cost we decide to build the data mart on Amazon Web Services, AWS. We leverage a technology called Redshift which is a specialized relational database for data warehouse. It is easy to manage and we have used AWS's API to easily scafold a data warehouse on cloud. Our infrastructe as code can be found at [link](). 
+To minimize upfront cost we decide to build the data mart on Amazon Web Services, AWS. We leverage a technology called Redshift which is a specialized relational database for data warehouse. It is easy to manage and we have used AWS's API to easily scafold a data warehouse on cloud. Our infrastructe as code can be found at [link](https://github.com/ylam/udacity-data-engineer/tree/master/Cloud%20Data%20Warehouses/project/setup_environment). 
 
 ## Steps to run code
-1. Create a user in AWS and copy key and secret to [dwh.cfg file]().
-2. Python 3.7.1 is installed in environment with modules `psycopg2` and `boto3` from [requirements.txt file]().
-3. Scafold a redshift cluster follow steps in [lesson_setup_redshift_cluster notebook]()
+1. Create a user in AWS and copy key and secret to [dwh.cfg file](https://github.com/ylam/udacity-data-engineer/blob/master/Cloud%20Data%20Warehouses/project/setup_environment/dwh.cfg). 
+2. Python 3.7.1 is installed in environment with modules `psycopg2` and `boto3` from [requirements.txt file](https://github.com/ylam/udacity-data-engineer/blob/master/Cloud%20Data%20Warehouses/project/requirements.txt).
+3. Scafold a redshift cluster follow steps in [lesson_setup_redshift_cluster notebook](https://github.com/ylam/udacity-data-engineer/tree/master/Cloud%20Data%20Warehouses/project/setup_environment)
 4. Create tables in redshift cluster by running `python create_tables.py`
 5. Populate staging, dimension and fact tables by running `python etl.py`
 
