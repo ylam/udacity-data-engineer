@@ -75,8 +75,8 @@ songplay_table_create = ("""
         start_time timestamp REFERENCES dim_time(start_time) NOT NULL,
         user_id int REFERENCES dim_user(user_id) NOT NULL,
         level varchar,
-        song_id varchar,
-        artist_id varchar,
+        song_id varchar REFERENCES dim_song(song_id) NOT NULL,
+        artist_id varchar REFERENCES dim_artist(artist_id) NOT NULL,
         session_id varchar,
         location varchar,
         user_agent varchar,
@@ -99,7 +99,7 @@ song_table_create = ("""
     CREATE TABLE dim_song (
         song_id varchar NOT NULL,
         title varchar NOT NULL,
-        artist_id varchar NOT NULL,
+        artist_id varchar,
         year int,
         duration decimal,
         PRIMARY KEY (song_id)
