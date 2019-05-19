@@ -63,6 +63,13 @@ To store metadata about song, artist and event data we create two staging tables
 ## Infrastructure
 To minimize upfront cost we decide to build the data mart on Amazon Web Services, AWS. We leverage a technology called Redshift which is a specialized relational database for data warehouse. It is easy to manage and we have used AWS's API to easily scafold a data warehouse on cloud. Our infrastructe as code can be found at [link](). 
 
+## Steps to run code
+1. Create a user in AWS and copy key and secret to [dwh.cfg file]().
+2. Python 3.7.1 is installed in environment with modules `psycopg2` and `boto3` from [requirements.txt file]().
+3. Scafold a redshift cluster follow steps in [lesson_setup_redshift_cluster notebook]()
+4. Create tables in redshift cluster by running `python create_tables.py`
+5. Populate staging, dimension and fact tables by running `python etl.py`
+
 ## References
 1. Logic to convert epoch time to datetime with redshift [link](https://stackoverflow.com/questions/39815425/how-to-convert-epoch-to-datetime-redshift)
 2. Infrastructure as code to build data mart with Redshift comes from L3 Execise 2 in lecture.
