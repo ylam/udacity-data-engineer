@@ -13,7 +13,7 @@
 
 ## Full pipeline
 
-![Airflow pipeline](https://github.com/ylam/udacity-data-engineer/edit/master/Data%20Pipeline%20Airflow/airflow_datapipeline_project.png "Airflow pipeline")
+![Airflow Pipeline](airflow_datapipeline_project.png?raw=true "Airflow")
 
 
 
