@@ -13,7 +13,7 @@
 
 ## Full pipeline
 
-Add image
+![Airflow Pipeline](airflow_datapipeline_project.png?raw=true "Airflow")
 
 
 
