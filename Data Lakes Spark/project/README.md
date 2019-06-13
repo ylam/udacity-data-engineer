@@ -8,7 +8,7 @@ We have built a team to consume, analyze and provide recommendations on how to b
 ## Database design and ETL pipeline
 Our ETL pipeline will extract from two datasets namely song and log. Below is a sample of their definition.
 
-**Song dataset
+**Song dataset**
 ```
 {
   "num_songs": 1,
@@ -24,7 +24,7 @@ Our ETL pipeline will extract from two datasets namely song and log. Below is a 
 }
 ```
 
-**Log dataset
+**Log dataset**
 ```
 {
   "artist": null,
