@@ -22,6 +22,11 @@ def create_spark_session():
 
 
 def process_song_data(spark, input_data, output_data):
+    """
+    Using data from song I generate the following tables 
+    songs
+    artist
+    """
     # get filepath to song data file
     # song_data = os.path.join(input_data, "song_data/A/*/*/*.json")
     
@@ -46,6 +51,12 @@ def process_song_data(spark, input_data, output_data):
 
 
 def process_log_data(spark, input_data, output_data):
+    """
+    Using data from log and song plays I generate the following tables 
+    users
+    time
+    songplays
+    """
     # get filepath to log data file
     # log_data = os.path.join(input_data, "2018/11/*.json")
     
