@@ -28,9 +28,9 @@ def process_song_data(spark, input_data, output_data):
     artist
     """
     # get filepath to song data file
-    # song_data = os.path.join(input_data, "song_data/A/*/*/*.json")
+    song_data = os.path.join(input_data, "song_data/A/*/*/*.json")
     
-    song_data = os.path.join(input_data, "song_data/A/A/A/TRAAAAK128F9318786.json")
+    # song_data = os.path.join(input_data, "song_data/A/A/A/TRAAAAK128F9318786.json")
     output_songs_table = os.path.join(output_data, "songs_table")
     output_artists_table = os.path.join(output_data, "artists_table")
     
@@ -58,10 +58,11 @@ def process_log_data(spark, input_data, output_data):
     songplays
     """
     # get filepath to log data file
-    # log_data = os.path.join(input_data, "2018/11/*.json")
+    log_data = os.path.join(input_data, "log-data/2018/11/*.json")
+    song_data = os.path.join(input_data, "song_data/A/*/*/*.json")
     
-    log_data = os.path.join(input_data, "2018/11/2018-11-01-events.json")
-    song_data = os.path.join(input_data, "song_data/A/A/A/TRAAAAK128F9318786.json")
+    # log_data = os.path.join(input_data, "log-data/2018/11/2018-11-01-events.json")
+    # song_data = os.path.join(input_data, "song_data/A/A/A/TRAAAAK128F9318786.json")
     
     output_users_table = os.path.join(output_data, "users_table")
     output_time_table = os.path.join(output_data, "time_table")
