@@ -70,9 +70,7 @@ def process_log_data(spark, input_data, output_data):
     
     # read log data file
     df = spark.read.json(log_data)
-    
-    # print(df.printSchema())
-    
+       
     # filter by actions for song plays
     df = df.filter(df.page == 'NextSong').dropDuplicates()
 
