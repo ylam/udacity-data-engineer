@@ -51,6 +51,7 @@ Our ETL pipeline will extract from two datasets namely song and log. Below is a 
 Our goal is to extract from the dataset into individual JSON files stored in Amazon Web Services' s3. The s3 data is flexible which can later be easily imported into a relational database if we like. In addition our analysts can use Apache Spark to load and query this data.
 
 Below is an image of us successfully extracting and loading data into Amazone Web Services' s3. 
+![s3 files](s3_bucket_data_lake.png?raw=true "s3 files")
 
 ## Steps to build and populate s3 files
 **Requirements**
